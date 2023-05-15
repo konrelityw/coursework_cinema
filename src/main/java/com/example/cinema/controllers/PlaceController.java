@@ -3,7 +3,10 @@ package com.example.cinema.controllers;
 import com.example.cinema.dto.PlaceDto;
 import com.example.cinema.dto.SessionDto;
 import com.example.cinema.models.Place;
+import com.example.cinema.models.UserEntity;
+import com.example.cinema.security.SecurityUtil;
 import com.example.cinema.service.PlaceService;
+import com.example.cinema.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,22 +22,39 @@ import java.util.List;
 @Controller
 public class PlaceController {
     private PlaceService placeService;
+    private UserService userService;
 
     @Autowired
-    public PlaceController(PlaceService placeService) {
+    public PlaceController(PlaceService placeService, UserService userService) {
         this.placeService = placeService;
+        this.userService = userService;
     }
 
     @GetMapping("/places")
     public String placeList(Model model) {
+        UserEntity user = new UserEntity();
         List<PlaceDto> places = placeService.findAllPlaces();
+        String username = SecurityUtil.getSessionUser();
+        if(username != null) {
+            user = userService.findByUsername(username);
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("user", user);
         model.addAttribute("places", places);
         return "places-list";
     }
 
     @GetMapping("/places/{placeId}")
     public String viewPlace(@PathVariable("placeId")Long placeId, Model model){
+        UserEntity user = new UserEntity();
         PlaceDto placeDto = placeService.findByPlaceId(placeId);
+        String username = SecurityUtil.getSessionUser();
+        if(username != null) {
+            user = userService.findByUsername(username);
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("session", placeDto);
+        model.addAttribute("user", user);
         model.addAttribute("place", placeDto);
         return "places-detail";
     }
