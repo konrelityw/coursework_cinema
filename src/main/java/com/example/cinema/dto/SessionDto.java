@@ -1,6 +1,7 @@
 package com.example.cinema.dto;
 
 
+import com.example.cinema.models.UserEntity;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +21,6 @@ public class SessionDto {
     private LocalDateTime time;
     @NotEmpty(message = "Price should not be empty!")
     private String price;
+    private UserEntity createdBy;
     private List<PlaceDto> places;
 }

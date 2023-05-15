@@ -15,6 +15,7 @@ public class SessionMapper {
                 .amountOfPlaces(session.getAmountOfPlaces())
                 .price(session.getPrice())
                 .time(session.getTime())
+                .createdBy(session.getCreatedBy())
                 .places(session.getPlaces().stream().map(place -> mapToPlaceDto(place)).collect(Collectors.toList()))
                 .build();
         return sessionDto;
@@ -26,6 +27,7 @@ public class SessionMapper {
                 .amountOfPlaces(session.getAmountOfPlaces())
                 .price(session.getPrice())
                 .time(session.getTime())
+                .createdBy(session.getCreatedBy())
                 .build();
         return sessionDto;
     }
