@@ -61,7 +61,7 @@ public class SessionController {
         return "sessions-create";
     }
     @GetMapping("/sessions/{sessionId}/delete")
-    public String deleteSession(@PathVariable("{sessionId}")long sessionId){
+    public String deleteSession(@PathVariable("sessionId")long sessionId){
         sessionService.delete(sessionId);
         return "redirect:/sessions";
     }
@@ -90,14 +90,14 @@ public class SessionController {
 
     @PostMapping("/sessions/{sessionId}/edit")
     public String updateSession(@PathVariable("sessionId") Long sessionId,
-                                @Valid @ModelAttribute("session") SessionDto session,
+                                @Valid @ModelAttribute("session") SessionDto seance,
                                 BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("session", session);
+            model.addAttribute("session", seance);
             return "sessions-edit";
         }
-        session.setId(sessionId);
-        sessionService.updateSession(session);
+        seance.setId(sessionId);
+        sessionService.updateSession(seance);
         return "redirect:/sessions";
     }
 }

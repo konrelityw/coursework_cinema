@@ -53,7 +53,7 @@ public class PlaceController {
             user = userService.findByUsername(username);
             model.addAttribute("user", user);
         }
-        model.addAttribute("session", placeDto);
+        model.addAttribute("filmSession", placeDto.getSession());
         model.addAttribute("user", user);
         model.addAttribute("place", placeDto);
         return "places-detail";
@@ -63,7 +63,7 @@ public class PlaceController {
     public String createNewPlace(@PathVariable("sessionId") Long sessionId, Model model) {
         Place place = new Place();
         model.addAttribute("sessionId", sessionId);
-        model.addAttribute("placeId", place);
+        model.addAttribute("place", place);
         return "places-create";
     }
     @GetMapping("/places/{placeId}/edit")

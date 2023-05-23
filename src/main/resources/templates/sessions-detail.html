@@ -1,14 +1,15 @@
-<html
-        xmlns:th="http://thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout}">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Session Create</title>
+  <title>Sessions</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
-<body class="d-flex flex-column">
-
-<section layout:fragment="body">
-  <header class="py-5 bg-light border-bottom mb-4">
+<body>
+<div class="container">
+  <header th:insert="blocks/header :: header"></header>
+</div>
     <div class="container">
       <div class="text-center my-5">
         <h1 class="fw-bolder" th:text="${session.title}"></h1>
@@ -23,11 +24,11 @@
       <div class="col-lg-8">
         <!-- Featured blog post-->
         <div class="card mb-4">
-          <a href="#!"><img class="card-img-top" th:src="${session.photoUrl}" alt="..." /></a>
+          <div class="small text-muted" th:text="${session.amountOfPlaces}" ></div>
           <div class="card-body">
-            <div class="small text-muted" th:text="${session.createdOn}"></div>
+            <div class="small text-muted" th:text="${session.price}"></div>
             <h2 class="card-title">About this cinema</h2>
-            <p class="card-text" th:text="$session.content}"></p>
+            <p class="card-text" th:text="${session.time}"></p>
             <div th:if="${user.id} == ${session.createdBy.id}">
               <a class="btn btn-primary" th:href="@{/sessions/{sessionId}/delete(clubId=${session.id})}">Delete</a>
               <a class="btn btn-primary" th:href="@{/places/{sessionId}/new(sessionId=${session.id})}">Create Session</a>
