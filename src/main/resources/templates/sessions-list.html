@@ -22,20 +22,28 @@
             <a class="btn btn-lg btn-primary"
                th:href="@{/sessions/new}">Create session</a>
         </div>
-        <div th:each="filmSession :${sessions}" class="col-lg-6 mb-2">
+        <div th:each="seance :${sessions}" class="col-lg-6 mb-2">
             <div class="position-relative mb-3">
                 <div class="jumbotron jumbotron-fluid">
                     <div class="h-100 w-100 p-5 bg-body-tertiary border rounded-3">
-                        <a th:text="${filmSession.title}"
+                        <a th:text="${seance.title}"
                            class="h3 fw-bolder text-decoration-none link-dark stretched-link"></a><br>
-                        <a th:text="${filmSession.amountOfPlaces}"
+                        <a th:text="${seance.amountOfPlaces}"
                            class="h3 fw-bolder text-decoration-none link-dark stretched-link"></a>
-                        <a th:text="${filmSession.price}"
+                        <a th:text="${seance.price}"
                            class="h3 fw-bolder text-decoration-none link-dark stretched-link"></a>
-                        <a th:text="${filmSession.time}"
+                        <a th:text="${seance.time}"
                            class="h3 fw-bolder text-decoration-none link-dark stretched-link"></a>
                     </div>
                 </div>
+            </div>
+            <div class="buttons text-center">
+                <a class="btn btn-lg btn-primary"
+                   th:href="@{/sessions/{sessionId}/edit(sessionId=${seance.id})}">Edit</a>
+                <a class="btn btn-lg btn-primary"
+                   th:href="@{/sessions/{sessionId}(sessionId=${seance.id})}">Details</a>
+                <a class="btn btn-lg btn-primary"
+                   th:href="@{/sessions/{sessionId}/delete(sessionId=${seance.id})}">Delete</a>
             </div>
         </div>
     </div>

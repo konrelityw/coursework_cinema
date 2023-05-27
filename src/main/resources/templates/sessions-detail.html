@@ -12,31 +12,25 @@
 </div>
     <div class="container">
       <div class="text-center my-5">
-        <h1 class="fw-bolder" th:text="${session.title}"></h1>
-        <p class="lead mb-0">Charlotte, NC</p>
+        <h1 class="fw-bolder" th:text="${seance.title}"></h1>
       </div>
     </div>
   </header>
-  <!-- Page content-->
   <div class="container">
     <div class="row">
-      <!-- Blog entries-->
       <div class="col-lg-8">
-        <!-- Featured blog post-->
         <div class="card mb-4">
-          <div class="small text-muted" th:text="${session.amountOfPlaces}" ></div>
+          <div class="small text-muted" th:text="${seance.amountOfPlaces}" ></div>
           <div class="card-body">
-            <div class="small text-muted" th:text="${session.price}"></div>
-            <h2 class="card-title">About this cinema</h2>
-            <p class="card-text" th:text="${session.time}"></p>
-            <div th:if="${user.id} == ${session.createdBy.id}">
-              <a class="btn btn-primary" th:href="@{/sessions/{sessionId}/delete(clubId=${session.id})}">Delete</a>
-              <a class="btn btn-primary" th:href="@{/places/{sessionId}/new(sessionId=${session.id})}">Create Session</a>
+            <div class="small text-muted" th:text="${seance.price}"></div>
+            <h2 class="card-title">About this session</h2>
+            <p class="card-text" th:text="${seance.time}"></p>
+            <div th:if="${user.id} == ${seance.createdBy.id}">
+              <a class="btn btn-primary" th:href="@{/sessions/{sessionId}/delete(clubId=${seance.id})}">Delete</a>
+              <a class="btn btn-primary" th:href="@{/places/{sessionId}/new(sessionId=${seance.id})}">Create Session</a>
             </div>
           </div>
         </div>
-        <!-- Nested row for non-featured blog posts-->
-        <!-- Pagination-->
         <nav aria-label="Pagination">
           <hr class="my-0" />
           <ul class="pagination justify-content-center my-4">
@@ -50,9 +44,7 @@
           </ul>
         </nav>
       </div>
-      <!-- Side widgets-->
       <div class="col-lg-4">
-        <!-- Search widget-->
         <div class="card mb-4">
           <div class="card-header">Search</div>
           <div class="card-body">
@@ -61,26 +53,6 @@
               <button class="btn btn-primary" id="button-search" type="button">Go!</button>
             </div>
           </div>
-        </div>
-        <!-- Categories widget-->
-        <div class="card mb-4">
-          <div class="card-header">Categories</div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-6">
-                <ul class="list-unstyled mb-0">
-                  <li><a href="#!">Road Runner</a></li>
-                  <li><a href="#!">Trail</a></li>
-                  <li><a href="#!">Marathon</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Side widget-->
-        <div class="card mb-4">
-          <div class="card-header">Side Widget</div>
-          <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
         </div>
       </div>
     </div>

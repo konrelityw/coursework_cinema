@@ -46,4 +46,8 @@ public class AuthController {
         userService.saveUser(user);
         return "redirect:/sessions?success";
     }
+    @GetMapping("/")
+    public String home(){
+        return "home";
+    }
 }

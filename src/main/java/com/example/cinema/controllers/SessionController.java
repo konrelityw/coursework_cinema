@@ -29,14 +29,14 @@ public class SessionController {
     @GetMapping("/sessions")
     public String listSessions(Model model) {
         UserEntity user = new UserEntity();
-        List<SessionDto> sessions = sessionService.findAllSessions();
+        List<SessionDto> seance = sessionService.findAllSessions();
         String username = SecurityUtil.getSessionUser();
         if(username != null) {
             user = userService.findByUsername(username);
             model.addAttribute("user", user);
         }
         model.addAttribute("user", user);
-        model.addAttribute("sessions", sessions);
+        model.addAttribute("sessions", seance);
         return "sessions-list";
     }
 
@@ -50,14 +50,14 @@ public class SessionController {
             model.addAttribute("user", user);
         }
         model.addAttribute("user", user);
-        model.addAttribute("session", sessionDto);
+        model.addAttribute("seance", sessionDto);
         return "sessions-detail";
     }
 
     @GetMapping("/sessions/new")
     public String createNewSession(Model model) {
-        Session session = new Session();
-        model.addAttribute("session", session);
+        Session seance = new Session();
+        model.addAttribute("seance", seance);
         return "sessions-create";
     }
     @GetMapping("/sessions/{sessionId}/delete")
@@ -66,15 +66,15 @@ public class SessionController {
         return "redirect:/sessions";
     }
     @GetMapping("sessions/search")
-    public String searchSession(@RequestParam(value = "query")String query, Model model){
-        List<SessionDto> sessions = sessionService.searchSessions(query);
-        model.addAttribute("sessions", sessions);
+    public String searchSession(@RequestParam(value = "seance")String seance, Model model){
+        List<SessionDto> session = sessionService.searchSessions(seance);
+        model.addAttribute("seance", session);
         return "sessions-list";
     }
     @PostMapping("/sessions/new")
     public String saveSession(@Valid @ModelAttribute("session") SessionDto sessionDto, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("session", sessionDto);
+            model.addAttribute("seance", sessionDto);
             return "sessions-create";
         }
         sessionService.saveSession(sessionDto);
@@ -83,8 +83,8 @@ public class SessionController {
 
     @GetMapping("/sessions/{sessionId}/edit")
     public String editSession(@PathVariable("sessionId") Long sessionId, Model model) {
-        SessionDto session = sessionService.findSessionById(sessionId);
-        model.addAttribute("session", session);
+        SessionDto seance = sessionService.findSessionById(sessionId);
+        model.addAttribute("seance", seance);
         return "sessions-edit";
     }
 
@@ -93,7 +93,7 @@ public class SessionController {
                                 @Valid @ModelAttribute("session") SessionDto seance,
                                 BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("session", seance);
+            model.addAttribute("seance", seance);
             return "sessions-edit";
         }
         seance.setId(sessionId);

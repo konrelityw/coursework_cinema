@@ -14,31 +14,45 @@
 <div class="main">
   <div class="col-md-6 col-sm-12">
     <div class="container mt-5 mb-5">
-      -->
       <div th:if="${param.fail}" class="alert alert-success">
         Username or email already exists</div>
       <div class="login-form">
         <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
           <div class="form-group">
             <label>Username</label>
-            <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Username"
-                    th:field="*{username}">
+            <label>
+              <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Username"
+                      th:field="*{username}">
+            </label>
           </div>
           <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>
           <div class="form-group">
+            <label>Email</label>
+            <label>
+              <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Email"
+                      th:field="*{email}">
+            </label>
+          </div>
+          <p th:if="${#fields.hasErrors('email')}" class="text-danger"></p>
+          <div class="form-group">
             <label>Password</label>
-            <input
-                    type="password"
-                    class="form-control"
-                    placeholder="Password"
-                    th:field="*{password}">
+            <label>
+              <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      th:field="*{password}">
+            </label>
           </div>
           <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>
           <button th:href="@{/login}" type="submit" class="btn btn-black">Login here.</button>
-          <button th:href="@{/register}" type="submit" class="btn btn-secondary">Register</button>
+          <button th:href="@{/register/save}" type="submit" class="btn btn-secondary">Register</button>
         </form>
       </div>
     </div>

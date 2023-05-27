@@ -59,10 +59,10 @@ public class PlaceController {
         return "places-detail";
     }
 
-    @GetMapping("places/{sessionId}/new")
-    public String createNewPlace(@PathVariable("sessionId") Long sessionId, Model model) {
+    @GetMapping("places/{filmSessionId}/new")
+    public String createNewPlace(@PathVariable("filmSessionId") Long sessionId, Model model) {
         Place place = new Place();
-        model.addAttribute("sessionId", sessionId);
+        model.addAttribute("filmSessionId", sessionId);
         model.addAttribute("place", place);
         return "places-create";
     }
@@ -73,8 +73,8 @@ public class PlaceController {
         return "places-edit";
     }
 
-    @PostMapping("/places/{sessionId}")
-    public String createPlace(@PathVariable("sessionId") Long sessionId, @ModelAttribute("place") PlaceDto placeDto,
+    @PostMapping("/places/{filmSessionId}")
+    public String createPlace(@PathVariable("filmSessionId") Long sessionId, @ModelAttribute("place") PlaceDto placeDto,
                               BindingResult result,
                               Model model) {
         if (result.hasErrors()) {

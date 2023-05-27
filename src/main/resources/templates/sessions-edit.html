@@ -12,7 +12,7 @@
 </div>
 <div class="container">
     <form role="form" method="post" th:action="@{/sessions/{sessionId}/edit(sessionId=${sessionId})}"
-          th:object="${session}">
+          th:object="${seance}">
         <input type="hidden" th:field="*{id}">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -51,7 +51,7 @@
                 <p th:if="${#fields.hasErrors('time')}" class="text-danger" th:errors="*{time}"></p>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">Edit</button>
     </form>
 </div>
 </body>
