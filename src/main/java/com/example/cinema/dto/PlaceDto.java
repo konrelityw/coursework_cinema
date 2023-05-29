@@ -15,4 +15,5 @@ public class PlaceDto {
     private String row;
     private String number;
     private Session session;
+    private boolean isBooked;
 }

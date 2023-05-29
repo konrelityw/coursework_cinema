@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Places</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>Places</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
-  <header th:insert="blocks/header :: header"></header>
+    <header th:insert="blocks/header :: header"></header>
 </div>
-    <div class="container px-5 my-5">
-      <div class="text-center mb-5">
-        <h1 class="fw-bolder">Find Running Films</h1>
-        <p class="lead fw-normal text-muted mb-0">Find running cinemas near you</p>
-      </div>
-      <div class="row gx-5">
-        <div th:each="place :${places}" class="col-lg-6 mb-2">
-          <div class="position-relative mb-3">
-            <img class="img-fluid rounded-3 mb-3" th:src="${place.row}" alt="..." />
-            <a th:text="${place.number}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"></a>
-          </div>
-          <a th:href="@{/places/{placeId}(placeId=${place.id})}" class="btn btn-primary">View</a>
-          <div th:if="${user.id} == ${place.session.createdBy.id}">
-            <a th:href="@{/places/{placeId}/edit(placeId=${place.id})}" class="btn btn-primary">Edit</a>
-          </div>
-        </div>
-      </div>
+<div class="container px-5 my-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bolder">View tickets for sessions</h1>
     </div>
-  </section>
-</main>
+    <div class="row">
+        <div th:each="place : ${places}" class="col-lg-6 mb-2">
+            <div class="position-relative mb-3">
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="h-100 w-100 p-5 bg-body-tertiary border rounded-3">
+                        <h3 class="fw-bolder"><a th:text="${place.session.title}" class="text-decoration-none link-dark stretched-link"></a></h3>
+                        <p class="fw-bolder"><a th:text="${place.session.time}" class="text-decoration-none link-dark stretched-link"></a></p>
+                        <p><strong>Row: </strong><span th:text="${place.row}"></span></p>
+                        <p><strong>Number: </strong><span th:text="${place.number}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

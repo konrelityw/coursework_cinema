@@ -17,6 +17,7 @@ public class Place {
     private Long id;
     private String row;
     private String number;
+    private boolean isBooked;
     @ManyToOne
     @JoinColumn(name = "cinema_session_id", nullable = false)
     private Session session;

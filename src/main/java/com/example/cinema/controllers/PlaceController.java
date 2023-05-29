@@ -6,6 +6,7 @@ import com.example.cinema.models.Place;
 import com.example.cinema.models.UserEntity;
 import com.example.cinema.security.SecurityUtil;
 import com.example.cinema.service.PlaceService;
+import com.example.cinema.service.SessionService;
 import com.example.cinema.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,17 @@ import java.util.List;
 public class PlaceController {
     private PlaceService placeService;
     private UserService userService;
+    private SessionService sessionService;
 
     @Autowired
-    public PlaceController(PlaceService placeService, UserService userService) {
+    public PlaceController(PlaceService placeService, UserService userService, SessionService sessionService) {
         this.placeService = placeService;
         this.userService = userService;
+        this.sessionService = sessionService;
     }
 
     @GetMapping("/places")
-    public String placeList(Model model) {
+    public String placeList(Model model, SessionDto sessionDto) {
         UserEntity user = new UserEntity();
         List<PlaceDto> places = placeService.findAllPlaces();
         String username = SecurityUtil.getSessionUser();
@@ -40,6 +43,7 @@ public class PlaceController {
             model.addAttribute("user", user);
         }
         model.addAttribute("user", user);
+        model.addAttribute("seance", sessionDto);
         model.addAttribute("places", places);
         return "places-list";
     }
@@ -59,10 +63,10 @@ public class PlaceController {
         return "places-detail";
     }
 
-    @GetMapping("places/{filmSessionId}/new")
-    public String createNewPlace(@PathVariable("filmSessionId") Long sessionId, Model model) {
+    @GetMapping("places/{sessionId}/new")
+    public String createNewPlace(@PathVariable("sessionId") Long sessionId, Model model) {
         Place place = new Place();
-        model.addAttribute("filmSessionId", sessionId);
+        model.addAttribute("sessionId", sessionId);
         model.addAttribute("place", place);
         return "places-create";
     }
@@ -73,13 +77,13 @@ public class PlaceController {
         return "places-edit";
     }
 
-    @PostMapping("/places/{filmSessionId}")
-    public String createPlace(@PathVariable("filmSessionId") Long sessionId, @ModelAttribute("place") PlaceDto placeDto,
+    @PostMapping("/places/{sessionId}")
+    public String createPlace(@PathVariable("sessionId") Long sessionId, @ModelAttribute("place") PlaceDto placeDto,
                               BindingResult result,
                               Model model) {
         if (result.hasErrors()) {
             model.addAttribute("place", placeDto);
-            return "sessions-create";
+            return "sessions-detail";
         }
         placeService.createPlace(sessionId, placeDto);
         return "redirect:/sessions/" + sessionId;
@@ -97,7 +101,7 @@ public class PlaceController {
         place.setId(placeId);
         place.setSession(placeDto.getSession());
         placeService.updatePlace(place);
-        return "redirect:/places";
+        return "redirect:/{sessionId}/places";
     }
     @GetMapping("/places/{placeId}/delete")
     public String deletePlace(@PathVariable("placeId") long placeId){
