@@ -21,4 +21,5 @@ public class Place {
     @ManyToOne
     @JoinColumn(name = "cinema_session_id", nullable = false)
     private Session session;
+
 }

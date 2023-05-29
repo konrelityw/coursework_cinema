@@ -26,14 +26,10 @@
             <div class="position-relative mb-3">
                 <div class="jumbotron jumbotron-fluid">
                     <div class="h-100 w-100 p-5 bg-body-tertiary border rounded-3">
-                        <a th:text="${seance.title}"
-                           class="h3 fw-bolder text-decoration-none link-dark stretched-link"></a><br>
-                        <a th:text="${seance.amountOfPlaces}"
-                           class="h3 fw-bolder text-decoration-none link-dark stretched-link"></a>
-                        <a th:text="${seance.price}"
-                           class="h3 fw-bolder text-decoration-none link-dark stretched-link"></a>
-                        <a th:text="${seance.time}"
-                           class="h3 fw-bolder text-decoration-none link-dark stretched-link"></a>
+                        <h3 class="fw-bolder"><a th:text="${seance.title}" class="text-decoration-none link-dark stretched-link"></a></h3>
+                        <p class="fw-bolder">Amount of Places: <span th:text="${seance.amountOfPlaces}"></span></p>
+                        <p class="fw-bolder">Price: <span th:text="${seance.price}"></span></p>
+                        <p class="fw-bolder">Time: <span th:text="${seance.time}"></span></p>
                     </div>
                 </div>
             </div>

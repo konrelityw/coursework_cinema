@@ -14,4 +14,5 @@ public interface PlaceService {
     void updatePlace(PlaceDto placeDto);
 
     void deletePlace(long placeId);
+    void reservePlace(Long placeId);
 }

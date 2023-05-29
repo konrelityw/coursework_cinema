@@ -9,6 +9,7 @@ public class PlaceMapper {
                 .id(placeDto.getId())
                 .row(placeDto.getRow())
                 .number(placeDto.getNumber())
+                .isBooked(placeDto.isBooked())
                 .session(placeDto.getSession())
                 .build();
     }
@@ -17,6 +18,7 @@ public class PlaceMapper {
                 .id(place.getId())
                 .row(place.getRow())
                 .number(place.getNumber())
+                .isBooked(place.isBooked())
                 .session(place.getSession())
                 .build();
     }

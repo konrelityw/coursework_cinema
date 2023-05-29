@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,6 +38,7 @@ public class PlaceController {
     public String placeList(Model model, SessionDto sessionDto) {
         UserEntity user = new UserEntity();
         List<PlaceDto> places = placeService.findAllPlaces();
+        List<PlaceDto> availablePlaces = new ArrayList<>();
         String username = SecurityUtil.getSessionUser();
         if(username != null) {
             user = userService.findByUsername(username);
@@ -44,7 +46,13 @@ public class PlaceController {
         }
         model.addAttribute("user", user);
         model.addAttribute("seance", sessionDto);
-        model.addAttribute("places", places);
+        for (PlaceDto place : places) {
+            if (!place.isBooked()) {
+                availablePlaces.add(place);
+            }
+        }
+
+        model.addAttribute("places", availablePlaces);
         return "places-list";
     }
 
@@ -108,4 +116,10 @@ public class PlaceController {
         placeService.deletePlace(placeId);
         return "redirect:/places";
     }
+    @PostMapping("/places/{placeId}/reserve")
+    public String reservePlace(@PathVariable("placeId") Long placeId) {
+        placeService.reservePlace(placeId);
+        return "redirect:/places";
+    }
+
 }

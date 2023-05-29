@@ -20,12 +20,15 @@
                 <div class="jumbotron jumbotron-fluid">
                     <div class="h-100 w-100 p-5 bg-body-tertiary border rounded-3">
                         <h3 class="fw-bolder"><a th:text="${place.session.title}" class="text-decoration-none link-dark stretched-link"></a></h3>
-                        <p class="fw-bolder"><a th:text="${place.session.time}" class="text-decoration-none link-dark stretched-link"></a></p>
+                        <p><strong>Time: </strong><span th:text="${place.session.time}" ></span></p>
                         <p><strong>Row: </strong><span th:text="${place.row}"></span></p>
                         <p><strong>Number: </strong><span th:text="${place.number}"></span></p>
                     </div>
                 </div>
             </div>
+            <form th:action="@{/places/{placeId}/reserve(placeId=${place.id})}" method="post">
+                <button type="submit" class="btn btn-primary">Reserve</button>
+            </form>
         </div>
     </div>
 </div>

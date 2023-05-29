@@ -54,5 +54,17 @@ public class PlaceServiceImpl implements PlaceService {
     public void deletePlace(long placeId) {
         placeRepository.deleteById(placeId);
     }
+
+    @Override
+    public void reservePlace(Long placeId) {
+        if (placeRepository.existsById(placeId)) {
+            Place place = placeRepository.findById(placeId).orElseThrow(() -> new RuntimeException("Place not found"));
+            place.setBooked(true);
+            placeRepository.save(place);
+        } else {
+            throw new RuntimeException("Place not found");
+        }
+    }
+
 }
 
