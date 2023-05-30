@@ -22,11 +22,17 @@ public class UserEntity {
     private String username;
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private List<Role> roles = new ArrayList<>();
+
+    public boolean isAdmin() {
+        return roles.stream()
+                .map(Role::getName)
+                .anyMatch(role -> role.equals("ROLE_ADMIN"));
+    }
 }

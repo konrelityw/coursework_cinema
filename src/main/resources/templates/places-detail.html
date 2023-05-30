@@ -10,27 +10,25 @@
 <div class="container">
     <header th:insert="blocks/header :: header"></header>
 </div>
-    </header>
-    <!-- Page content-->
-    <div class="container">
-        <div class="row">
-            <!-- Blog entries-->
-            <div class="col-lg-8">
-                <!-- Featured blog post-->
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="small text-muted" th:text="${place.row}"></div>
-                        <h2 class="card-title">About this place</h2>
-                        <p class="card-text" th:text="${place.number}"></p>
-                        <div th:if="${user.id} == ${place.session.createdBy.id}">
-                            <a class="btn btn-primary"
-                               th:href="@{/places/{placeId}/delete(placeId=${place.id})}">Delete</a>
-                        </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="small text-muted" th:text="${place.row}"></div>
+                    <h2 class="card-title">About this place</h2>
+                    <p class="card-text" th:text="${place.number}"></p>
+                    <div th:if="${user.id} == ${place.session.createdBy.id}">
+                        <a class="btn btn-primary"
+                           th:href="@{/places/{placeId}/delete(placeId=${place.id})}"
+                           th:if="${user.isAdmin()}">Delete</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </section>
 </body>
 </html>

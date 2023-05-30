@@ -26,8 +26,8 @@ public class Session {
     private String amountOfPlaces;
     private String price;
     @DateTimeFormat private LocalDateTime time;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by", nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "created_by")
     private UserEntity createdBy;
     @OneToMany(mappedBy = "session", cascade = CascadeType.REMOVE)
     private List<Place> places = new ArrayList<>();

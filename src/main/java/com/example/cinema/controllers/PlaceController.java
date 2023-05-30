@@ -4,10 +4,10 @@ import com.example.cinema.dto.PlaceDto;
 import com.example.cinema.dto.SessionDto;
 import com.example.cinema.models.Place;
 import com.example.cinema.models.UserEntity;
-import com.example.cinema.security.SecurityUtil;
 import com.example.cinema.service.PlaceService;
 import com.example.cinema.service.SessionService;
 import com.example.cinema.service.UserService;
+import com.sun.security.auth.PrincipalComparator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class PlaceController {
-    private PlaceService placeService;
-    private UserService userService;
+    private final PlaceService placeService;
+    private final UserService userService;
     private SessionService sessionService;
 
     @Autowired
@@ -35,39 +36,23 @@ public class PlaceController {
     }
 
     @GetMapping("/places")
-    public String placeList(Model model, SessionDto sessionDto) {
-        UserEntity user = new UserEntity();
-        List<PlaceDto> places = placeService.findAllPlaces();
+    public String placeList(Model model, Principal principal) {
         List<PlaceDto> availablePlaces = new ArrayList<>();
-        String username = SecurityUtil.getSessionUser();
-        if(username != null) {
-            user = userService.findByUsername(username);
-            model.addAttribute("user", user);
-        }
-        model.addAttribute("user", user);
-        model.addAttribute("seance", sessionDto);
-        for (PlaceDto place : places) {
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        for (PlaceDto place : placeService.findAllPlaces()) {
             if (!place.isBooked()) {
                 availablePlaces.add(place);
             }
         }
-
         model.addAttribute("places", availablePlaces);
         return "places-list";
     }
 
     @GetMapping("/places/{placeId}")
-    public String viewPlace(@PathVariable("placeId")Long placeId, Model model){
-        UserEntity user = new UserEntity();
-        PlaceDto placeDto = placeService.findByPlaceId(placeId);
-        String username = SecurityUtil.getSessionUser();
-        if(username != null) {
-            user = userService.findByUsername(username);
-            model.addAttribute("user", user);
-        }
-        model.addAttribute("filmSession", placeDto.getSession());
-        model.addAttribute("user", user);
-        model.addAttribute("place", placeDto);
+    public String viewPlace(@PathVariable("placeId") Long placeId, Model model, Principal principal) {
+        model.addAttribute("filmSession", placeService.findByPlaceId(placeId).getSession());
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        model.addAttribute("place", placeService.findByPlaceId(placeId));
         return "places-detail";
     }
 
@@ -78,6 +63,7 @@ public class PlaceController {
         model.addAttribute("place", place);
         return "places-create";
     }
+
     @GetMapping("/places/{placeId}/edit")
     public String editPlace(@PathVariable("placeId") Long placeId, Model model) {
         PlaceDto place = placeService.findByPlaceId(placeId);
@@ -99,8 +85,8 @@ public class PlaceController {
 
     @PostMapping("/places/{placeId}/edit")
     public String updatePlace(@PathVariable("placeId") Long placeId,
-                                @Valid @ModelAttribute("place") PlaceDto place,
-                                BindingResult result, Model model) {
+                              @Valid @ModelAttribute("place") PlaceDto place,
+                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("place", place);
             return "places-edit";
@@ -111,11 +97,13 @@ public class PlaceController {
         placeService.updatePlace(place);
         return "redirect:/{sessionId}/places";
     }
+
     @GetMapping("/places/{placeId}/delete")
-    public String deletePlace(@PathVariable("placeId") long placeId){
+    public String deletePlace(@PathVariable("placeId") long placeId) {
         placeService.deletePlace(placeId);
         return "redirect:/places";
     }
+
     @PostMapping("/places/{placeId}/reserve")
     public String reservePlace(@PathVariable("placeId") Long placeId) {
         placeService.reservePlace(placeId);

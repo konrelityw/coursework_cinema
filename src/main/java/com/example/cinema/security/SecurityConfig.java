@@ -1,5 +1,6 @@
 package com.example.cinema.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,8 +29,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/login", "/register", "/sessions")
-                .permitAll()
+                .requestMatchers("/login", "/register/**", "/sessions/**")
+                .permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -44,7 +45,7 @@ public class SecurityConfig {
 
         return http.build();
     }
-
+    @Autowired
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }

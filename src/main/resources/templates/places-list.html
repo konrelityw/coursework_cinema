@@ -19,16 +19,23 @@
             <div class="position-relative mb-3">
                 <div class="jumbotron jumbotron-fluid">
                     <div class="h-100 w-100 p-5 bg-body-tertiary border rounded-3">
-                        <h3 class="fw-bolder"><a th:text="${place.session.title}" class="text-decoration-none link-dark stretched-link"></a></h3>
-                        <p><strong>Time: </strong><span th:text="${place.session.time}" ></span></p>
+                        <h3 class="fw-bolder"><a th:text="${place.session.title}"
+                                                 class="text-decoration-none link-dark stretched-link"></a></h3>
+                        <p><strong>Time: </strong><span th:text="${place.session.time}"></span></p>
                         <p><strong>Row: </strong><span th:text="${place.row}"></span></p>
                         <p><strong>Number: </strong><span th:text="${place.number}"></span></p>
                     </div>
                 </div>
             </div>
-            <form th:action="@{/places/{placeId}/reserve(placeId=${place.id})}" method="post">
+            <form th:action="@{/places/{placeId}/reserve(placeId=${place.id})}" th:if="${!user.isAdmin()}"
+                  method="post">
                 <button type="submit" class="btn btn-primary">Reserve</button>
             </form>
+            <div th:if="${user.id} == ${place.session.createdBy.id}">
+                <a class="btn btn-primary"
+                   th:href="@{/places/{placeId}/delete(placeId=${place.id})}"
+                   th:if="${user.isAdmin()}">Delete</a>
+            </div>
         </div>
     </div>
 </div>
