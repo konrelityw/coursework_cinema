@@ -16,14 +16,11 @@
         <div class="col-lg-8">
             <div class="card mb-4">
                 <div class="card-body">
-                    <div class="small text-muted" th:text="${place.row}"></div>
-                    <h2 class="card-title">About this place</h2>
-                    <p class="card-text" th:text="${place.number}"></p>
-                    <div th:if="${user.id} == ${place.session.createdBy.id}">
-                        <a class="btn btn-primary"
-                           th:href="@{/places/{placeId}/delete(placeId=${place.id})}"
-                           th:if="${user.isAdmin()}">Delete</a>
-                    </div>
+                    <h3 class="fw-bolder"><a th:text="${place.session.title}"
+                                             class="text-decoration-none link-dark stretched-link"></a></h3>
+                    <p><strong>Time: </strong><span th:text="${place.session.time}"></span></p>
+                    <p><strong>Row: </strong><span th:text="${place.row}"></span></p>
+                    <p><strong>Number: </strong><span th:text="${place.number}"></span></p>
                 </div>
             </div>
         </div>

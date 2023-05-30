@@ -86,7 +86,7 @@ public class PlaceController {
     @PostMapping("/places/{placeId}/edit")
     public String updatePlace(@PathVariable("placeId") Long placeId,
                               @Valid @ModelAttribute("place") PlaceDto place,
-                              BindingResult result, Model model) {
+                              BindingResult result, Model model, Principal principal) {
         if (result.hasErrors()) {
             model.addAttribute("place", place);
             return "places-edit";
@@ -95,8 +95,20 @@ public class PlaceController {
         place.setId(placeId);
         place.setSession(placeDto.getSession());
         placeService.updatePlace(place);
-        return "redirect:/{sessionId}/places";
+        return "redirect:/places";
     }
+//    @PostMapping("/sessions/{sessionId}/edit")
+//    public String updateSession(@PathVariable("sessionId") Long sessionId,
+//                                @Valid @ModelAttribute("session") SessionDto seance,
+//                                BindingResult result, Model model, Principal principal) {
+//        if (result.hasErrors()) {
+//            model.addAttribute("seance", seance);
+//            return "sessions-edit";
+//        }
+//        seance.setId(sessionId);
+//        sessionService.updateSession(seance, principal.getName());
+//        return "redirect:/sessions";
+//    }
 
     @GetMapping("/places/{placeId}/delete")
     public String deletePlace(@PathVariable("placeId") long placeId) {

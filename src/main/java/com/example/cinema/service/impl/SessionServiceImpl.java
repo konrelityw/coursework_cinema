@@ -30,7 +30,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Session saveSession(SessionDto sessionDto,String username) {
+    public Session saveSession(SessionDto sessionDto, String username) {
         UserEntity user = userRepository.findByUsername(username);
         Session session = mapToSession(sessionDto);
         session.setCreatedBy(user);
@@ -39,7 +39,8 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public SessionDto findSessionById(long sessionId) {
-        Session session = sessionRepository.findById(sessionId).get();
+        Session session = sessionRepository.findById(sessionId).
+                orElseThrow(() -> new IllegalArgumentException("Session with Id %s not found".formatted(sessionId)));
         return mapToSessionDto(session);
     }
 

@@ -33,6 +33,11 @@
             </form>
             <div th:if="${user.id} == ${place.session.createdBy.id}">
                 <a class="btn btn-primary"
+                   th:href="@{/places/{placeId}(placeId=${place.id})}">Details</a>
+                <a class="btn btn-primary"
+                   th:href="@{/places/{placeId}/edit(placeId=${place.id})}"
+                   th:if="${user.isAdmin()}">Edit</a>
+                <a class="btn btn-primary"
                    th:href="@{/places/{placeId}/delete(placeId=${place.id})}"
                    th:if="${user.isAdmin()}">Delete</a>
             </div>
