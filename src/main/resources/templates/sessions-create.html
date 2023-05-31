@@ -10,50 +10,50 @@
 <div class="container">
     <header th:insert="blocks/header :: header"></header>
 </div>
-        <div class="container">
-            <form role="form" method="post" th:action="@{/sessions/new}" th:object="${seance}">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="title">Title</label>
-                        <input
-                                type="text"
-                                class="form-control"
-                                id="title"
-                                name="title"
-                                th:field="*{title}"
-                                placeholder="Title">
-                        <p th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}"></p>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="amountOfPlaces">Amount of places</label>
-                        <input
-                                type="text"
-                                class="form-control"
-                                id="amountOfPlaces"
-                                name="amountOfPlaces"
-                                th:field="*{amountOfPlaces}"
-                                placeholder="Amount of places">
-                        <p th:if="${#fields.hasErrors('amountOfPlaces')}" class="text-danger"
-                           th:errors="*{amountOfPlaces}"></p>
-                    </div>
-                </div>
-                <div class="form-group mb-3">
-                    <label for="price">Price</label>
-                    <input type="text" class="form-control" id="price" name="price" th:field="*{price}"
-                           placeholder="Enter the price">
-                    <p th:if="${#fields.hasErrors('price')}" class="text-danger" th:errors="*{price}"></p>
-                </div>
-                <div class="form-group mb-3">
-                    <label for="startTime">Time</label>
-                    <input type="datetime-local" class="form-control" id="startTime" name="time" th:field="*{time}"
-                           placeholder="YYYY-MM-DDTHH:MM">
-                    <p th:if="${#fields.hasErrors('time')}" class="text-danger" th:errors="*{time}"></p>
-
-                </div>
-                <button type="submit" class="btn btn-primary">Create</button>
-            </form>
+<div class="container">
+    <form role="form" method="post" th:action="@{/sessions/new}" th:object="${seance}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="title">Title</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        name="title"
+                        th:field="*{title}"
+                        placeholder="Title">
+                <p th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}"></p>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="amountOfPlaces">Amount of places</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="amountOfPlaces"
+                        name="amountOfPlaces"
+                        th:field="*{amountOfPlaces}"
+                        placeholder="Amount of places">
+                <p th:if="${#fields.hasErrors('amountOfPlaces')}" class="text-danger"
+                   th:errors="*{amountOfPlaces}"></p>
+            </div>
         </div>
-    </section>
+        <div class="form-group mb-3">
+            <label for="price">Price</label>
+            <input type="text" class="form-control" id="price" name="price" th:field="*{price}"
+                   placeholder="Enter the price">
+            <p th:if="${#fields.hasErrors('price')}" class="text-danger" th:errors="*{price}"></p>
+        </div>
+        <div class="form-group mb-3">
+            <label for="startTime">Time</label>
+            <input type="datetime-local" class="form-control" id="startTime" name="time" th:field="*{time}"
+                   placeholder="YYYY-MM-DDTHH:MM">
+            <p th:if="${#fields.hasErrors('time')}" class="text-danger" th:errors="*{time}"></p>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
+</section>
 </main>
 </body>
 </html>
