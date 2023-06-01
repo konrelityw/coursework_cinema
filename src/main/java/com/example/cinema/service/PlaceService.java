@@ -11,7 +11,7 @@ public interface PlaceService {
 
     PlaceDto findByPlaceId(Long placeId);
 
-    void updatePlace(PlaceDto placeDto);
+    void updatePlace(PlaceDto placeDto, String username);
 
     void deletePlace(long placeId);
     void reservePlace(Long placeId);

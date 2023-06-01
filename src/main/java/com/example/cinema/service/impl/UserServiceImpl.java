@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(RegistrationDto registrationDto) {
         UserEntity user = new UserEntity();
-        user.getRoles().add(roleRepository.findByName("USER"));
+        user.getRoles().add(roleRepository.findByName("ROLE_USER"));
         user.setUsername(registrationDto.getUsername());
         user.setEmail(registrationDto.getEmail());
         user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));

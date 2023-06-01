@@ -24,7 +24,6 @@ import static com.example.cinema.mapper.SessionMapper.mapToSession;
 public class PlaceServiceImpl implements PlaceService {
     private final SessionService sessionService;
     private final PlaceRepository placeRepository;
-    private final SessionRepository sessionRepository;
 
     @Override
     public void createPlace(Long sessionId, PlaceDto placeDto) {
@@ -48,7 +47,7 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public void updatePlace(PlaceDto placeDto) {
+    public void updatePlace(PlaceDto placeDto, String username) {
         Place place = mapToPlace(placeDto);
         placeRepository.save(place);
     }

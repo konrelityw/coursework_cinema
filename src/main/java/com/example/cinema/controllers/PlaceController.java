@@ -91,24 +91,10 @@ public class PlaceController {
             model.addAttribute("place", place);
             return "places-edit";
         }
-        PlaceDto placeDto = placeService.findByPlaceId(placeId);
         place.setId(placeId);
-        place.setSession(placeDto.getSession());
-        placeService.updatePlace(place);
+        placeService.updatePlace(place, principal.getName());
         return "redirect:/places";
     }
-//    @PostMapping("/sessions/{sessionId}/edit")
-//    public String updateSession(@PathVariable("sessionId") Long sessionId,
-//                                @Valid @ModelAttribute("session") SessionDto seance,
-//                                BindingResult result, Model model, Principal principal) {
-//        if (result.hasErrors()) {
-//            model.addAttribute("seance", seance);
-//            return "sessions-edit";
-//        }
-//        seance.setId(sessionId);
-//        sessionService.updateSession(seance, principal.getName());
-//        return "redirect:/sessions";
-//    }
 
     @GetMapping("/places/{placeId}/delete")
     public String deletePlace(@PathVariable("placeId") long placeId) {
